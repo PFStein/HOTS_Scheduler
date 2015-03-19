@@ -21,3 +21,6 @@ class PlayerDetailView(generic.ListView):
     model = Player
     template_name = 'teams/player_details.html'    
     
+class CalendarView():
+    
+
