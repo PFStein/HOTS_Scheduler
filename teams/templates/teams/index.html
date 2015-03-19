@@ -2,17 +2,25 @@
 
 {% block content %}
     {% if active_teams %}
-        <ul>
-        {% for team in active_teams %}
-            <li>
-                <a href=#>
-                    {{ team.team_name }}
-                </a>
-                {{team.region }}
-            </li>
-        {% endfor %}
-        </ul>
+        <!--Create table for displaying teams -->
+        <table class="table table-condensed">
+            <!-- Table headers TODO: change to be generated in python-->
+            <tr>
+                <th>Team Name</th>
+                <th>Region</th>
+                <th/>
+            </tr>
+            {% for team in active_teams %}
+                <tr>
+                    <td>{{team.team_name}}</td>
+                    <td>{{team.region}}</td>
+                    <td><a class="btn btn-primary" href="#"
+                     role="button">View</a>
+                     </td>
+                </tr>
+            {% endfor %}
+        </table>
     {% else %}
-        <p>No polls are available.</p>
+        <p>There are no teams currently available!</p>
     {% endif %}
 {% endblock %}
