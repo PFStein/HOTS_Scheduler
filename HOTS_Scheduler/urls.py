@@ -6,6 +6,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'HOTS_Scheduler.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^teams/', include('teams.urls', namespace="teams")),
+    url(r'^scheduler/', include('scheduler.urls', namespace="scheduler")),
     url(r'^admin/', include(admin.site.urls)),
 )

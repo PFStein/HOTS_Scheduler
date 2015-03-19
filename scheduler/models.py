@@ -75,7 +75,7 @@ class Event(models.Model):
         return "Name: {} | Start time: {} | End Time: {}".format(
                 self.event_name,self.start_time,self.end_time)
 
-class Registrations(models.Model):
+class Registration(models.Model):
     '''
     Join table between Events and Teams signing up.
     Includes a specific start and end time.
