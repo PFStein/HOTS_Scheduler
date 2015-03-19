@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if active_players %}
+        <!--Create table for displaying teams -->
+        <table class="table table-condensed">
+            <!-- Table headers TODO: change to be generated in python-->
+            <tr>
+                <th>Player Name</th>
+                <th>Team Name</th>
+                <th/>
+            </tr>
+            {% for player in active_players %}
+                <tr>
+                    <td>{{player.player_name}}</td>
+                    <td>{{player.team.name}}</td>
+                    <td><a class="btn btn-primary" href="#"
+                     role="button">View</a>
+                     </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no players currently available!</p>
+    {% endif %}
+
+{% endblock  %}
