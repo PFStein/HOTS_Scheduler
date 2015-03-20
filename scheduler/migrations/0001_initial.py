@@ -2,18 +2,20 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Event',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('event_name', models.CharField(max_length=50)),
                 ('start_time', models.DateTimeField(verbose_name='Start Time')),
                 ('end_time', models.DateTimeField(verbose_name='End Time')),
@@ -25,10 +27,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Player',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(unique=True, max_length=254)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('player_name', models.CharField(max_length=50)),
-                ('password', models.CharField(max_length=50)),
             ],
             options={
             },
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Registration',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('start_time', models.DateTimeField(verbose_name='Start Time')),
                 ('end_time', models.DateTimeField(verbose_name='End Time')),
             ],
@@ -48,8 +48,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Role',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(default='PL', max_length=2, choices=[('PL', 'Player'), ('TC', 'Team Captain'), ('MA', 'Manager'), ('AN', 'Analyst')])),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('name', models.CharField(max_length=2, default='PL', choices=[('PL', 'Player'), ('TC', 'Team Captain'), ('MA', 'Manager'), ('AN', 'Analyst')])),
             ],
             options={
             },
@@ -58,8 +58,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Team',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('team_name', models.CharField(unique=True, max_length=50)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('team_name', models.CharField(max_length=50, unique=True)),
                 ('region', models.CharField(max_length=3, choices=[('USA', 'The United States'), ('EUR', 'Europe')])),
             ],
             options={
@@ -88,6 +88,12 @@ class Migration(migrations.Migration):
             model_name='player',
             name='team',
             field=models.ForeignKey(to='scheduler.Team'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='player',
+            name='user',
+            field=models.OneToOneField(to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
         migrations.AddField(

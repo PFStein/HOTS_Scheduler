@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Team(models.Model):
     '''
     This model represents a single Heroes of the Storm team
     It includes a tuple containing possible regions.
     The following models reference this model:
-    Player, Event, Registrations
+    Player, Event, Registrations.
     '''
     UNITED_STATES = "USA"
     EUROPE = "EUR"
@@ -41,22 +42,22 @@ class Role(models.Model):
     ) 
     name = models.CharField(max_length=2,
                             choices=ROLE_CHOICES,
-                            default=PLAYER)
+                            default=PLAYER,
+                            unique=True)
     def __str__(self):
         return self.name
     
     
 class Player(models.Model):
     '''
-    This is the main user Model for the website.
-    This will contain relevant login information, team
-    association, and role given to that player.
+    This is a profile model that extends the behvaior of Django's
+    Authentication Model. It includes a player name, a team, and
+    a role(s) for each player.
     '''
-    email = models.EmailField(max_length=254,unique=True)
     player_name = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    team = models.ForeignKey(Team)
-    roles = models.ManyToManyField(Role)     
+    team = models.ForeignKey(Team,null=True)
+    roles = models.ManyToManyField(Role,null=True)
+    user = models.OneToOneField(User)     
     
     def __str__(self):
         return self.player_name
