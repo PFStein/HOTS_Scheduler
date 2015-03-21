@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^scheduler/', include('scheduler.urls', namespace="scheduler")),
     url(r'^admin/', include(admin.site.urls)),
+    url('^', include('django.contrib.auth.urls')),
 )
